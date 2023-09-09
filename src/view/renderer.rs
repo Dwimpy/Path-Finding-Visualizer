@@ -23,7 +23,9 @@ impl Renderer {
     self.canvas.clear();
     self.canvas.present();
     let mut i = 0;
-    let mut grid = Grid::new(800, 600).unwrap();
+    let mut grid = Grid::new(32, 32).unwrap();
+	grid.set_outline();
+	grid.set_thickness(1);
     'running: loop {
         i = (i + 1) % 255;
         self.canvas.set_draw_color(Color::RGB(i, 64, 255 - i));
@@ -36,7 +38,6 @@ impl Renderer {
                 },
                 _ => {}
             }
-
         }
         // The rest of the game loop goes here...
         grid.draw(&mut self.canvas);

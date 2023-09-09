@@ -25,6 +25,7 @@ impl Window {
 			.window("Path Findin Visualizer", 1920, 1080)
 			.opengl()
 			.position_centered()
+			.borderless()
 			.build()
 			.unwrap();
 
