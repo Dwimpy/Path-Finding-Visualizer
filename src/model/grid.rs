@@ -1,4 +1,3 @@
-use sdl2::hint::Hint::Default;
 use sdl2::pixels::Color;
 use sdl2::render::WindowCanvas;
 use crate::model::cell::Cell;

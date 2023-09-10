@@ -1,4 +1,3 @@
-use std::rc::Rc;
 use std::time::Duration;
 use sdl2::event::Event;
 use sdl2::EventPump;
@@ -6,24 +5,23 @@ use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
 use sdl2::render::WindowCanvas;
 use crate::model::grid::Grid;
+use crate::ui::UI;
 use crate::view;
-use crate::view::renderer::Renderer;
 
-pub mod renderer;
-pub mod window;
+pub mod sdl_window;
 
 pub struct View {
 	canvas: WindowCanvas,
 	event: EventPump,
-	renderer:Renderer,
+	ui: UI,
 }
 
 impl View {
 	pub fn new () -> Self {
-		let window = view::window::Window::new().unwrap();
-		let (mut canvas, event) = window.into_canvas();
-		let renderer = Renderer::new();
-		View { canvas, event, renderer }
+		let window = view::sdl_window::Window::new().unwrap();
+		let (canvas, event) = window.into_canvas();
+		let ui = UI::new();
+		View { canvas, event, ui }
 	}
 
 	pub fn render(&mut self) -> Result <(), String> {
@@ -31,9 +29,7 @@ impl View {
 		self.canvas.clear();
 		self.canvas.present();
 		let mut i = 0;
-		let mut grid = Grid::new(64, 64).unwrap();
-		grid.set_outline();
-		grid.set_thickness(1);
+
 		'running: loop {
 			i = (i + 1) % 255;
 			self.canvas.set_draw_color(Color::RGB(i, 64, 255 - i));
@@ -48,7 +44,7 @@ impl View {
 					}
 				}
 			// The rest of the game loop goes here...
-			grid.draw(&mut self.canvas);
+			self.ui.draw(&mut self.canvas);
 			self.canvas.present();
 			::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
 		}

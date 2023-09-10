@@ -1,7 +1,6 @@
-use std::iter::once_with;
 use sdl2::pixels::Color;
 use sdl2::rect::Rect;
-use sdl2::render::{CanvasBuilder, WindowCanvas};
+use sdl2::render::{ WindowCanvas };
 
 const BLACK_OUTLINE: Color = Color::RGBA(0, 0, 0, 0x07);
 #[derive(Copy, Clone)]

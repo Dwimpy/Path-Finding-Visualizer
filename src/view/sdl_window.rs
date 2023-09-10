@@ -1,13 +1,7 @@
 extern crate sdl2;
 
-use std::time::Duration;
-use sdl2::event::Event;
-use sdl2::keyboard::Keycode;
-use sdl2::pixels::Color;
 use sdl2::render::{CanvasBuilder, WindowCanvas};
-use sdl2::{EventPump, Sdl};
-use crate::view::renderer::Renderer;
-use crate::view::View;
+use sdl2::{EventPump};
 
 pub struct Window {
 	sdl_context: sdl2::Sdl,
