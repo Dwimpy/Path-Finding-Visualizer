@@ -4,7 +4,7 @@ mod view;
 mod model;
 
 fn main() {
-	let view = View::new();
-	view.run();
+	let mut view = View::new();
+	view.render().unwrap();
     println!("Hello, world!");
 }
