@@ -2,7 +2,7 @@ use sdl2::pixels::Color;
 use sdl2::rect::Rect;
 use sdl2::render::{ WindowCanvas };
 
-const BLACK_OUTLINE: Color = Color::RGBA(0, 0, 0, 0x07);
+const BLACK_OUTLINE: Color = Color::RGBA(0, 0, 0, 0xFF);
 #[derive(Copy, Clone)]
 pub struct Cell {
     x: i32,

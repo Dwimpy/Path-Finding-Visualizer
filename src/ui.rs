@@ -11,9 +11,9 @@ pub struct UI {
 }
 
 impl UI {
-	pub fn new () -> Self {
+	pub fn new (size: (u32, u32)) -> Self {
 		let window = Window::new();
-		let mut grid = Grid::new(64, 64).unwrap();
+		let mut grid = Grid::new(64, 64, size).unwrap();
 		grid.set_outline();
 		grid.set_thickness(1);
 		UI { window, grid}

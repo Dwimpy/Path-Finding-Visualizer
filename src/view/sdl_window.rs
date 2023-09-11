@@ -17,8 +17,9 @@ impl Window {
 			.unwrap();
 
 		let window = video_subsystem
-			.window("Path Finding Visualizer", 1680, 960)
+			.window("Path Finding Visualizer", 1920, 1080)
 			.opengl()
+			.allow_highdpi()
 			.position_centered()
 			.borderless()
 			.build()
