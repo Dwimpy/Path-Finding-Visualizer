@@ -1,4 +1,5 @@
 use sdl2::pixels::Color;
+use sdl2::rect::Point;
 use sdl2::render::WindowCanvas;
 use crate::model::cell::Cell;
 
@@ -8,13 +9,12 @@ pub struct Grid {
 	outline: bool,
 }
 impl Grid {
-    pub fn new(rows: usize, cols: usize, size: (u32, u32)) -> Result<Self, String> {
+    pub fn new(start: Point, rows: usize, cols: usize) -> Result<Self, String> {
         let mut cells = Vec::with_capacity(rows * cols);
-        let width = size.0 as usize / cols;
-        let height = size.1 as usize / rows;
         for row in 0..rows {
             for col in 0..cols {
-                let cell = Cell::new((col * width) as i32, (row * height) as i32, width as u32, height as u32, Color::RGBA(0, 255, 0, 0xFF)).unwrap();
+                let mut cell = Cell::new((start.x + col as i32) as i32, (start.y + row as i32) as i32, Color::RGBA(133, 24, 56, 0xFF)).unwrap();
+				cell.adjust_to_grid(col as u32, row as u32);
                 cells.push(cell);
             }
         }

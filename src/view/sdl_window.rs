@@ -21,7 +21,6 @@ impl Window {
 			.opengl()
 			.allow_highdpi()
 			.position_centered()
-			.borderless()
 			.build()
 			.unwrap();
 
