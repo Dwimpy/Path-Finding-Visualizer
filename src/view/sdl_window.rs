@@ -26,6 +26,7 @@ impl Window {
 
 		let canvas_builder = window.into_canvas();
 
+
 		Ok(Window { sdl_context, canvas_builder})
 	}
 	pub fn into_canvas(self) -> (WindowCanvas, EventPump) {
@@ -33,4 +34,6 @@ impl Window {
 		let event = self.sdl_context.event_pump().unwrap();
 		(canvas, event)
 	}
+
+
 }

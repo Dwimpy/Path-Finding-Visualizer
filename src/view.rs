@@ -21,7 +21,7 @@ impl View {
 		let window = view::sdl_window::Window::new().unwrap();
 		let (mut canvas, event) = window.into_canvas();
 		canvas.set_blend_mode(BlendMode::Blend);
-		let ui = UI::new(canvas.output_size().unwrap());
+		let ui = UI::new(45, canvas.output_size().unwrap());
 		View { canvas, event, ui }
 	}
 
