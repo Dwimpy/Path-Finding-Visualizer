@@ -1,6 +1,5 @@
 use crate::view::View;
 mod view;
-mod model;
 mod ui;
 
 fn main() {

@@ -4,7 +4,6 @@ use sdl2::EventPump;
 use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
 use sdl2::render::{BlendMode, WindowCanvas};
-use crate::model::grid::Grid;
 use crate::ui::UI;
 use crate::view;
 

@@ -1,7 +1,7 @@
 use sdl2::pixels::Color;
 use sdl2::rect::Point;
 use sdl2::render::WindowCanvas;
-use crate::model::cell::Cell;
+use crate::ui::cell::Cell;
 
 const BLACK_OUTLINE: Color = Color::RGBA(0, 0, 0, 0xFF);
 
@@ -11,15 +11,16 @@ pub struct Grid {
 	thickness: u32,
     margin: u32,
 	outline: bool,
+	cell_color: Color,
     offset: f32,
 }
 impl Grid {
-    pub fn new(cells: Vec<Cell>, margin: u32, cell_size: i32, thickness: u32, offset: f32, outline: bool) -> Result<Self, String> {
-        Ok(Grid {cells, cell_size, thickness, margin, offset, outline})
+    pub fn new(cells: Vec<Cell>, margin: u32, cell_size: i32, thickness: u32, offset: f32, cell_color: Color, outline: bool) -> Result<Self, String> {
+        Ok(Grid {cells, cell_size, thickness, margin, offset, cell_color, outline})
     }
 
-    pub fn get_cells_mut(&mut self) -> &mut Vec<Cell> {
-        &mut self.cells
+    pub fn cells(&self) ->  &Vec<Cell> {
+        &self.cells
     }
 
     pub fn size(&self) -> i32 {
@@ -41,13 +42,10 @@ impl Grid {
     pub fn offset(&self) -> f32 {
         self.offset
     }
-	pub fn set_grid_cell_size(&self, cell_size: u32) -> Result<(), String> {
-		for cell in &self.cells {
-			// cell.set_cellsize(cell_size);
-		}
-		Ok (())
-	}
 
+	pub fn color(&self) -> Color {
+		self.cell_color
+	}
 
 	pub fn set_outline(&mut self) {
 		self.outline = true;
@@ -56,7 +54,6 @@ impl Grid {
 	pub fn remove_outline(&mut self)  {
 		self.outline = false;
 	}
-
 
 	pub fn set_thickness(&mut self, thickness: i32) {
 		self.thickness = thickness as u32;
@@ -71,6 +68,7 @@ pub struct GridBuilder {
     outline: bool,
     outline_thickness: u32,
     offset: f32,
+	color: Color,
 }
 
 impl GridBuilder {
@@ -81,10 +79,16 @@ impl GridBuilder {
             outline: true,
             outline_thickness: 1,
             offset: 0.0,
+			color: Color::RGB(177, 177, 177),
             width,
             height,
         }
     }
+
+	pub fn color (mut self, color: Color) -> Self {
+		self.color = color;
+		self
+	}
 
     pub fn margin (mut self, margin: u32) -> Self {
         self.margin = margin;
@@ -107,11 +111,11 @@ impl GridBuilder {
         let mut cells = Vec::with_capacity((rows * cols) as usize);
         for row in 0..rows {
             for col in 0..cols {
-                let mut cell = Cell::new(col as i32,row as i32, Color::RGBA(133, 122, 177, 0xFF)).unwrap();
+                let mut cell = Cell::new(col as i32,row as i32, self.color).unwrap();
                 cells.push(cell);
             }
         }
-       let grid = Grid::new(cells, self.margin, self.cell_size as i32, self.outline_thickness, self.offset, self.outline).unwrap();
+       let grid = Grid::new(cells, self.margin, self.cell_size as i32, self.outline_thickness, self.offset, self.color, self.outline).unwrap();
         Ok(grid)
     }
 }
